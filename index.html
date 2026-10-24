@@ -3,304 +3,431 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Wiedzy: Zaburzenia Nadkomorowe</title>
+    <title>Test z Arytmii Serca</title>
     <style>
-        :root {
-            --primary-color: #0f172a;
-            --accent-color: #2563eb;
-            --success-color: #16a34a;
-            --danger-color: #dc2626;
-            --warning-color: #d97706;
-            --bg-color: #f8fafc;
-            --card-bg: #ffffff;
-            --text-color: #0f172a;
-            --border-color: #e2e8f0;
-        }
-
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: Arial, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            max-width: 950px;
-            margin: 0 auto;
+            background-color: #f4f6f9;
+            color: #333;
+            max-width: 900px;
+            margin: 20px auto;
             padding: 20px;
-            background-color: var(--bg-color);
         }
-
-        header {
-            text-align: center;
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            margin-bottom: 25px;
-            border-top: 6px solid var(--accent-color);
-        }
-
         h1 {
-            margin: 0 0 10px 0;
-            color: var(--primary-color);
-            font-size: 1.8rem;
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
         }
-
-        .subtitle {
-            color: #64748b;
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        .controls-panel {
-            position: sticky;
-            top: 15px;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #ffffff;
-            padding: 15px 20px;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            flex-wrap: wrap;
-            gap: 10px;
-            border: 1px solid var(--border-color);
-        }
-
-        .btn {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .btn:hover {
-            background-color: #1d4ed8;
-            transform: translateY(-1px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-        }
-
-        .btn-success:hover {
-            background-color: #15803d;
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--primary-color);
-            border: 1px solid #cbd5e1;
-        }
-
-        .btn-outline:hover {
-            background-color: #f1f5f9;
-        }
-
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 0.85rem;
-        }
-
-        .score-board {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .category-header {
-            background: linear-gradient(90deg, var(--primary-color), #334155);
-            color: white;
-            padding: 14px 20px;
-            border-radius: 8px;
-            margin: 35px 0 20px 0;
-            font-size: 1.2rem;
-            font-weight: 700;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-        }
-
         .question-card {
-            background: var(--card-bg);
-            padding: 22px;
-            margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            border: 1px solid var(--border-color);
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
+        .question-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #2c3e50;
             margin-bottom: 12px;
         }
-
-        .question-text {
-            font-weight: 600;
-            font-size: 1.05rem;
-            margin: 0;
-            color: var(--primary-color);
+        .answers-list {
+            list-style-type: none;
+            padding-left: 0;
         }
-
-        .badge-count {
-            background-color: #eff6ff;
-            color: #1e40af;
-            border: 1px solid #bfdbfe;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            white-space: nowrap;
-        }
-
-        .options-list {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0 0 0;
-        }
-
-        .option-item {
+        .answers-list li {
             margin-bottom: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.2s, border-color 0.2s;
+            border: 1px solid transparent;
         }
-
-        .option-label {
+        .answers-list label {
+            cursor: pointer;
             display: flex;
             align-items: flex-start;
-            padding: 12px 14px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background-color: #f8fafc;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .option-label:hover {
-            background-color: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-
-        .option-label input {
-            margin-right: 12px;
-            margin-top: 3px;
-            transform: scale(1.2);
-            cursor: pointer;
-        }
-
-        .option-label.correct-target {
-            background-color: #dcfce7 !important;
-            border-color: #86efac !important;
-            color: #14532d;
-            font-weight: 600;
-        }
-
-        .option-label.incorrect-target {
-            background-color: #fee2e2 !important;
-            border-color: #fca5a5 !important;
-            color: #7f1d1d;
-        }
-
-        .option-label.missed-target {
-            background-color: #fef9c3 !important;
-            border-color: #fde047 !important;
-            color: #713f12;
-            font-weight: 600;
-        }
-
-        .single-check-bar {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px dashed var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .explanation-box {
-            display: none;
-            margin-top: 12px;
-            padding: 14px 16px;
-            background-color: #f0f9ff;
-            border-left: 4px solid var(--accent-color);
-            border-radius: 4px;
-            font-size: 0.92rem;
-            color: #0369a1;
+            gap: 8px;
             width: 100%;
-            box-sizing: border-box;
         }
 
-        @media (max-width: 600px) {
-            .controls-panel {
-                position: relative;
-                top: 0;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .question-header {
-                flex-direction: column;
-            }
-            .single-check-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
+        /* Stylizacja podświetleń po sprawdzeniu */
+        .answers-list li.option-correct-target {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .answers-list li.option-wrong-selected {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .status-tag {
+            font-weight: bold;
+            margin-left: auto;
+            padding-left: 10px;
+        }
+
+        button.btn-check {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 0.95em;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+        button.btn-check:hover {
+            background-color: #2980b9;
+        }
+        .feedback {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+            font-weight: bold;
+        }
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .feedback.incorrect {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .explanation-box {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #eef7fc;
+            border-left: 4px solid #3498db;
+            border-radius: 0 4px 4px 0;
+        }
+        .explanation-box .orig-text {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        .explanation-box .noob-expl {
+            font-size: 0.88em;
+            font-style: italic;
+            color: #4a5568;
+            margin-top: 8px;
+            border-top: 1px dashed #cbd5e0;
+            padding-top: 8px;
+        }
+        .noob-expl strong {
+            font-style: normal;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Kompleksowy Test: Zaburzenia Nadkomorowe</h1>
-        <p class="subtitle">Test wielokrotnego wyboru. Zaznacz wszystkie poprawne odpowiedzi dla każdego pytania.</p>
-    </header>
+    <h1>Test Wiedzy z Elektrokardiografii i Arytmii</h1>
 
-    <div class="controls-panel">
-        <button class="btn" onclick="initTest()">🔀 Losuj pytania i odpowiedzi</button>
-        <button class="btn btn-success" onclick="checkAllAnswers()">✔️ Sprawdź Cały Test</button>
-        <div class="score-board" id="scoreBoard">Wynik ogólny: - / -</div>
-    </div>
-
-    <form id="quizForm" onsubmit="return false;">
-        <div id="quizContainer"></div>
-    </form>
+    <div id="quiz-container"></div>
 
     <script>
-        const rawQuestions = [
-            // ==========================================
-            // KATEGORIA 1: PODZIAŁY I STRUKTURA ARYTMII
-            // ==========================================
+        const questionsData = [
             {
-                category: "CATEGORY_1",
-                text: "Podział arytmii oraz właściwości zespołu QRS: Jakie są ogólne zasady podziału i morfologii zapisów?",
-                explanation: "Arytmie dzielą się na nadkomorowe i komorowe[cite: 9]. Nadkomorowe (pochodzące z przedsionków lub węzła AV) mają zespół QRS wąski (<0,12s) i zachowują wygląd fizjologiczny (nie dotyczy lewej i prawej odnogi pęczka Hisa)[cite: 9]. Komorowe (pochodzące z mięśnia komór) charakteryzują się zespołem QRS szerokim (>0,12s), gdzie depolaryzacja trwa dłużej, przez co wygląd jest zmieniony[cite: 9]. Przykłady nadkomorowych to ST, PAC, PJC, a komorowych to PVC i VT[cite: 9].",
+                id: 1,
+                title: "Wskaż arytmie nadkomorowe: (5 prawidłowych odpowiedzi)",
+                type: "checkbox",
                 options: [
-                    { text: "Arytmie nadkomorowe pochodzą z przedsionków lub węzła AV", correct: true },
-                    { text: "W arytmiach nadkomorowych zespół QRS jest wąski (<0,12s) i zachowuje wygląd fizjologiczny (nie dotyczy lewej i prawej odnogi pęczka Hisa)", correct: true },
-                    { text: "Do arytmii nadkomorowych należą m.in. ST, PAC, PJC", correct: true },
-                    { text: "Arytmie komorowe pochodzą z mięśnia komór", correct: true },
-                    { text: "W arytmiach komorowych zespół QRS jest szeroki (>0,12s), depolaryzacja trwa dłużej, przez co wygląd jest zmieniony", correct: true },
-                    { text: "Do arytmii komorowych należą PVC i VT", correct: true },
-                    { text: "Arytmie nadkomorowe mają stale szeroki zespół QRS (>0,16s)", correct: false },
-                    { text: "Tachykardia komorowa (VT) wywodzi się z węzła zatokowego i ma wąski QRS", correct: false },
-                    { text: "Ekstrasystolia węzłowa (PJC) jest oficjalnie zaliczana do arytmii komorowych", correct: false }
+                    { text: "Ekstrasystolia przedsionkowa (PAC)", correct: true },
+                    { text: "Ekstrasystolia węzłowa (PJC)", correct: true },
+                    { text: "Tachykardia zatokowa (ST)", correct: true },
+                    { text: "Nawracająca tachykardia węzłowa (AVNRT)", correct: true },
+                    { text: "Tachykardia przedsionkowa (AT)", correct: true },
+                    { text: "Ekstrasystolia komorowa (PVC)", correct: false },
+                    { text: "Tachykardia komorowa (VT)", correct: false }
                 ]
             },
             {
-                category: "CATEGORY_1",
-                text: "Podział częstoskurczów nadkomorowych: Zaznacz WSZYSTKIE częstoskurcze należące do grupy zlokalizowanej wyłącznie w przedsionkach ('Tylko przedsionki'):",
-                explanation: "Do grupy zlokalizowanej wyłącznie w przedsionkach należą: Tachykardia zatokowa (ST), Nieadekwatna tachykardia zatokowa (IST), Nawrotny częstoskurcz przedsionkowy (SNRT), Ogniskowy częstoskurcz przedsionkowy (FAT) oraz Wielokształtny częstoskurcz przedsionkowy (MAT)[cite: 12]. Pozostałe (AVNRT, JET, NPJT, AVRT) należą do łącza AV[cite: 12].",
+                id: 2,
+                title: "Wskaż arytmie komorowe: (2 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Ekstrasystolia komorowa (PVC)", correct: true },
+                    { text: "Tachykardia komorowa (VT)", correct: true },
+                    { text: "Ekstrasystolia przedsionkowa (PAC)", correct: false },
+                    { text: "Ekstrasystolia węzłowa (PJC)", correct: false },
+                    { text: "Tachykardia zatokowa (ST)", correct: false },
+                    { text: "Nawracająca tachykardia węzłowa (AVNRT)", correct: false },
+                    { text: "Tachykardia przedsionkowa (AT)", correct: false }
+                ]
+            },
+            {
+                id: 3,
+                title: "Wybierz prawidłowe zestawienie dotyczące miejsca powstawania impulsu oraz czasu trwania zespołu QRS dla poszczególnych rodzajów arytmii: (1 prawidłowa odpowiedź)",
+                type: "radio",
+                options: [
+                    { text: "Nadkomorowe: Przedsionki / węzeł AV, Wąski, <0,12s | Komorowe: Komory, Szeroki, >0,12s", correct: true },
+                    { text: "Nadkomorowe: Komory, Wąski, <0,12s | Komorowe: Przedsionki / węzeł AV, Szeroki, >0,12s", correct: false },
+                    { text: "Nadkomorowe: Przedsionki / węzeł AV, Szeroki, >0,12s | Komorowe: Komory, Wąski, <0,12s", correct: false },
+                    { text: "Nadkomorowe: Komory, Szeroki, >0,12s | Komorowe: Przedsionki / węzeł AV, Wąski, <0,12s", correct: false }
+                ],
+                explanation: {
+                    orig: "POBUDZEΝΙΑ ΖΑΤΟΚOWE PRZEDWCZESNE: Pobudzenia pozazatokowe pojawiające się wcześniej niż oczekiwane pobudzenie zatokowe (rytmu podstawowego) nazywa się pobudzeniem przedwczesnym, dodatkowym lub ekstrasystolem (ES). Występuje on, gdy pewna część mięśnia sercowego staje się aktywna wcześniej niż węzeł S-A.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Serce ma własną główną elektrownię (węzeł zatokowy), która nadaje rytm. Gdy jakiś inny fragment serca 'wyrwie się przed szereg' i wyśle impuls za wcześnie, powstaje dodatkowe uderzenie (ekstrasystolia). Impulsy z górnej części serca (nadkomorowe) idą wąską, szybką drogą, a z dolnej (komorowe) wolniejszą i szeroką."
+                }
+            },
+            {
+                id: 4,
+                title: "Wskazań kryteria rozpoznania dla EKSTRASYSTOLII PRZEDSIONKOWEJ (PAC): (4 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Przedwczesny (w stosunku do rytmu zatokowego) załamek P o zmienionym kształcie, zawsze poprzedza zespół QRS", correct: true },
+                    { text: "Odstęp PQ>0,10s", correct: true },
+                    { text: "Odstęp PR>0,10s", correct: true },
+                    { text: "Kształt zespołu QRS przeważnie prawidłowy", correct: true },
+                    { text: "Miarowy rytm zatokowy o częstości powyżej 100/min (do 180, a nawet 200)", correct: false },
+                    { text: "Odstęp PQ <0,10s", correct: false },
+                    { text: "Szeroki zespół QRS >0,12s z brakiem załamka P", correct: false }
+                ],
+                explanation: {
+                    orig: "Przedsionkowe pobudzenia przedwczesne powstają w przedsionku, tzn. poza węzłem zatokowym. Zazwyczaj pobudzają wstecznie węzeł zatokowy, co powoduje zmianę rytmu i wystąpienie przerwy poekstrasystolicznej, która jest krótsza niż pełna przerwa wyrównawcza. Mogą występować u osób zdrowych, ale najczęściej spowodowane są organicznymi chorobami serca, np. przerost przedsionków.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Sytuacja, w której przedsionek serca wystrzeli impuls elektryczny zbyt wcześnie, zanim zrobi to główny rozrusznik. Powoduje to chwilową przerwę w rytmie serca, po czym wraca ono do pracy. Może to wystąpić ze stresu lub kawy, ale też przy chorobach serca."
+                }
+            },
+            {
+                id: 5,
+                title: "Co to jest Bigeminia przedsionkowa? (1 prawidłowa odpowiedź)",
+                type: "radio",
+                options: [
+                    { text: "po każdym prawidłowym pobudzeniu występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: true },
+                    { text: "po dwóch pobudzeniach prawidłowych występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: false },
+                    { text: "dwa pobudzenia występujące bezpośrednio po sobie", correct: false }
+                ]
+            },
+            {
+                id: 6,
+                title: "Co to jest Trigeminia przedsionkowa? (1 prawidłowa odpowiedź)",
+                type: "radio",
+                options: [
+                    { text: "po dwóch pobudzeniach prawidłowych występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: true },
+                    { text: "po każdym prawidłowym pobudzeniu występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: false },
+                    { text: "od 3-5 występujących bezpośrednio po sobie pobudzeń", correct: false }
+                ]
+            },
+            {
+                id: 7,
+                title: "Co to są Pary oraz Salwy w skurczach przedwczesnych? (1 prawidłowa odpowiedź)",
+                type: "radio",
+                options: [
+                    { text: "pary: dwa pobudzenia | salwy: od 3-5 występujących bezpośrednio po sobie pobudzeń", correct: true },
+                    { text: "pary: od 3-5 występujących bezpośrednio po sobie pobudzeń | salwy: dwa pobudzenia", correct: false },
+                    { text: "pary: po każdym prawidłowym pobudzeniu jedno dodatkowe | salwy: po dwóch prawidłowych jedno dodatkowe", correct: false }
+                ]
+            },
+            {
+                id: 8,
+                title: "Wskazań kryteria rozpoznania dla EKSTRASYSTOLII WĘZŁOWEJ (PJC): (4 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Przedwczesny (w stosunku do rytmu zatokowego) zespół QRS najczęściej o prawidłowym kształcie", correct: true },
+                    { text: "Odstęp PQ <0,10s", correct: true },
+                    { text: "Załamek P pobudzenia przedwczesnego zlokalizowany jest tuż przed zespołem QRS, w zespole QRS lub bezpośrednio po nim", correct: true },
+                    { text: "Załamek P pobudzenia przedwczesnego ujemny w odprowadzeniach II, III i aVF (jeżeli jest widoczny)", correct: true },
+                    { text: "Odstęp PQ>0,20s", correct: false },
+                    { text: "Miarowy rytm zatokowy o częstości powyżej 100/min", correct: false },
+                    { text: "Załamki P dodatnie w odprowadzeniach I i II", correct: false }
+                ],
+                explanation: {
+                    orig: "Węzłowe pobudzenia przedwczesne powstają w łączu przedsionkowo-komorowym. Pobudzenie jest przewodzone: wstecznie do przedsionków, w kierunku zstępującym do komór. Może występować u osób zdrowych, a także w przebiegu chorób serca, np. zapalenia mięśnia sercowego.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> W tym przypadku niesforny sygnał wyrasta na 'skrzyżowaniu' między górą a dołem serca (w łączu). Ponieważ stamtąd prąd idzie jednocześnie w dół do komór i pod prąd do przedsionków, fala P na EKG chowa się lub fika do góry nogami."
+                }
+            },
+            {
+                id: 9,
+                title: "Wskazań kryteria rozpoznania dla PRZYSPIESZONEGO RYTMU ZATOKOWEGO (ST): (3 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Miarowy rytm zatokowy o częstości powyżej 100/min (do 180, a nawet 200)", correct: true },
+                    { text: "Załamki P dodatnie w odprowadzeniach I i II, ujemne w aVR", correct: true },
+                    { text: "Każdy zespół QRS poprzedzony załamkiem P", correct: true },
+                    { text: "Odstęp PQ <0,10s", correct: false },
+                    { text: "Nagły początek i nagły koniec częstoskurczu", correct: false },
+                    { text: "Załamki P ujemne w II, III i aVF", correct: false }
+                ],
+                explanation: {
+                    orig: "Tachykardia jest wynikiem zwiększonej częstości powstawania pobudzeń w węźle zatokowym i może występować w warunkach fizjologicznych, np. w czasie wysiłku fizycznego.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> To po prostu bardzo szybkie, ale całkowicie prawidłowe bicie serca nadawane przez jego naturalny regulator. Zdarza się naturalnie, gdy biegamy, denerwujemy się albo mamy gorączkę."
+                }
+            },
+            {
+                id: 10,
+                title: "Wskazań właściwy opis dla NAWROTNEGO CZĘSTOSKURCZU ZATOKOWEGO (SANRT): (4 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Występuje rzadko, fala reentry w obrębie węzła zatokowego lub w jego ścisłym sąsiedztwie", correct: true },
+                    { text: "Załamki P o morfologii podobnej do zatokowych. Ich częstotliwość mieści się w zakresie 100-150/min", correct: true },
+                    { text: "Ma charakter napadowy", correct: true },
+                    { text: "RP>0,7s", correct: true },
+                    { text: "Częstość rytmu 150-250/min bez widocznych załamków P", correct: false },
+                    { text: "Odstęp PQ <0,10s z ujemnymi załamkami P w II, III", correct: false }
+                ],
+                explanation: {
+                    orig: "Występuje rzadko, fala reentry w obrębie węzła zatokowego lub w jego ścisłym sąsiedztwie. Załamki P o morfologii podobnej do zatokowych. Ich częstotliwość mieści się w zakresie 100-150/min. Ma charakter napadowy. RP>0,7s",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Rzadka sytuacja, gdy impuls elektryczny wpada w pętlę i zaczyna krążyć w kółko wokół głównego rozrusznika serca. Powoduje to nagłe, przyspieszone bicie serca, które w zapisie wygląda niemal tak jak zwykłe szybkie tętno."
+                }
+            },
+            {
+                id: 11,
+                title: "Wskazań cechy dla NAWROTNEGO CZĘSTOSKURCZU PRZEDSIONKOWO-KOMOROWEGO (AVRT): (5 prawidłowych odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Dodatkowy szlak przewodzenia między przedsionkami a komorami", correct: true },
+                    { text: "Może powstać reentry", correct: true },
+                    { text: "W rytmie zatokowym przewodzenie przez szlak dodatkowy widoczne jako skrócenie odstępu PQ w zespole QRS", correct: true },
+                    { text: "ortodromowy AVRT: występuje najczęściej, ujemne, wsteczne załamki P w II, III, aVF, dodatnie załamki P w aVR, wąskie zespoły QRS o prawidłowej morfologii, RP<0.7s (najczęściej, rzadziej powyżej, choć może)", correct: true },
+                    { text: "antydromowy AVRT miarowy częstoskurcz z szerokimi zespołami QRS, komory aktywowane przez szlak dodatkowy", correct: true },
+                    { text: "Brak pętli zwrotnej, spowolnienie przewodzenia w przedsionkach", correct: false },
+                    { text: "Rytm niemiarowy o częstości do 300/min", correct: false }
+                ],
+                explanation: {
+                    orig: "Dodatkowy szlak przewodzenia między przedsionkami a komorami. Może powstać reentry. W rytmie zatokowym przewodzenie przez szlak dodatkowy widoczne jako skrócenie odstępu PQ w zespole QRS. Ortodromowy AVRT: występuje najczęściej, ujemne wsteczne załamki P w II, III, aVF, dodatnie w aVR, wąskie QRS, RP<0,7s. Antydromowy AVRT: miarowy częstoskurcz z szerokimi zespołami QRS, komory aktywowane przez szlak dodatkowy.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Niektórzy ludzie rodzą się z dodatkowym 'kablem' łączącym górę serca z dołem. Sygnał elektryczny może wpaść w pętlę – biegnie w dół normalną drogą i wraca na górę tym dodatkowym kablem (lub odwrotnie), zmuszając serce do bardzo szybkiego bicia."
+                }
+            },
+            {
+                id: 12,
+                title: "Wskazań cechy OGNISKOWEGO CZĘSTOSKURCZU PRZEDSIONKOWEGO (FAT): (6 prawidłowych odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Pojedyncze ognisko zlokalizowane w mięśniówce przedsionków", correct: true },
+                    { text: "Częstotliwość rytmu przedsionków w zakresie 100-250/min", correct: true },
+                    { text: "Odstęp PQ >0,10s.", correct: true },
+                    { text: "Między monomorficznymi załamkami P występuje linia izoelektryczna", correct: true },
+                    { text: "Kształt załamków P zależy od lokalizacji; mają identyczny kształt jak załamek P pobudzenia inicjującego", correct: true },
+                    { text: "Częstoskurcz może być niemiarowy, zwykle zaczyna i kończy się spontanicznie, RP>0.1", correct: true },
+                    { text: "Zawsze miarowy o częstości 300/min z wąskimi zespołami QRS", correct: false }
+                ],
+                explanation: {
+                    orig: "Pojedyncze ognisko zlokalizowane w mięśniówce przedsionków. Częstotliwość rytmu przedsionków w zakresie 100-250/min. Odstęp PQ >0,10s. Między monomorficznymi załamkami P występuje linia izoelektryczna. Kształt załamków P zależy od lokalizacji; mają identyczny kształt jak załamek P pobudzenia inicjującego. Częstoskurcz może być niemiarowy, Zwykle zaczyna i kończy się spontanicznie, RP>0.1",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> W przedsionku pojawia się pojedynczy punkt, który zaczyna bardzo szybko wystrzeliwać impulsy niczym karabin maszynowy, przejmując kontrolę nad rytmem serca. Atak zazwyczaj pojawia się i znika samoczynnie."
+                }
+            },
+            {
+                id: 13,
+                title: "Wskazań kryteria dla WIELOKSZTAŁTNEGO CZĘSTOSKURCZU PRZEDSIONKOWEGO (MAT): (6 prawidłowych odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Częstość rytmu 100-250/min", correct: true },
+                    { text: "Załamki P różnokształtne w tym samym odprowadzeniu", correct: true },
+                    { text: "Zmienny odstęp PQ", correct: true },
+                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
+                    { text: "Niemiarowy rytm komór", correct: true },
+                    { text: "RP > 0,78", correct: true },
+                    { text: "Odstęp PQ < 0,10s stale stały", correct: false }
+                ],
+                explanation: {
+                    orig: "Jest wynikiem powstających z dużą częstością pobudzeń, które zlokalizowane są w przedsionkach. Występuje rzadko, głównie u osób w podeszłym wieku z zaawansowanymi chorobami układu krążenia.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Zamiast jednego punktu, w przedsionkach uaktywnia się kilka różnych miejsc naraz i każde wysyła swoje sygnały. Powoduje to całkowity chaos i nierówne bicie serca, co zdarza się głównie u osób starszych i ciężej chorych."
+                }
+            },
+            {
+                id: 14,
+                title: "Wskazań kryteria dla NAPADOWEGO CZĘSTOSKURCZU NADKOMOROWEGO (SV-TACHY, PSVT): (4 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Częstość rytmu 150-250/min", correct: true },
+                    { text: "Załamek P o zmienionym kształcie w porównaniu z rytmem zatokowym lub niewidoczny", correct: true },
+                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
+                    { text: "Nagły początek i nagły koniec częstoskurczu", correct: true },
+                    { text: "Szerokie zespoły QRS powyżej 0,14s", correct: false },
+                    { text: "Wolny, stopniowy narost częstości serca", correct: false }
+                ],
+                explanation: {
+                    orig: "Pojęcie obejmuje to grupę częstoskurczów (w tym przedsionkowy i węzłowy), ale nie precyzuje dokładnie lokalizacji rozrusznika. Większość z nich powstaje w mechanizmie reentry. Mają charakter napadowy, tzn nagle się rozpoczynają i nagle kończą. Występują najczęściej u chorych z wadami serca, a zdarza się, że i u osób zdrowych.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Ogólne określenie na nagłe ataki bardzo szybkiego bicia serca pochodzącego z górnych pięter serca. Atak zaczyna się 'od jednego uderzenia' i tak samo nagle się ustaje."
+                }
+            },
+            {
+                id: 15,
+                title: "Wskazań cechy dla NIENAPADOWEGO CZĘSTOSKURCZU WĘZŁOWEGO (NPJT): (5 prawidłowych odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Miarowy rytm o częstości 60-130/min (lub 70-120/min)", correct: true },
+                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
+                    { text: "Załamek P zlokalizowany tuż przed zespołem QRS (odstęp PQ < 0,1s), w zespole QRS lub bezpośrednio po nim", correct: true },
+                    { text: "Może przebiegać z brakiem wstecznego pobudzenia przedsionków (blok wsteczny) w przypadku gdy częstość przekracza 130/min należy brać pod uwagę napadowy częstoskurcz węzłowy", correct: true },
+                    { text: "Typowe dla niego jest zjawisko przyspieszania na początku i zwalniania przed jego ustąpieniem", correct: true },
+                    { text: "Zwykle nagły, niespodziewany skok tętna do 200/min", correct: false }
+                ],
+                explanation: {
+                    orig: "Najczęściej przyczyną jest zatrucie glikozydami naparstnicy. Zwykle przewodzenie przedsionkowo-komorowe odbywa się w stosunku 1:1.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Średnio szybki rytm serca nadawany przez węzeł przedsionkowo-komorowy, który nie zaczyna się nagłym skokiem, ale powoli przyspiesza i zwalnia. Najczęściej wywołują go niektóre leki na serce (naparstnica)."
+                }
+            },
+            {
+                id: 16,
+                title: "Wskazań kryteria dla ZASTĘPCZEGO RYTMU WĘZŁOWEGO (JR): (6 prawidłowych odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Miarowy rytm o częstości 40-60/min", correct: true },
+                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
+                    { text: "odstęp PQ<0,10s", correct: true },
+                    { text: "Załamki P zlokalizowane tuż przed zespołem QRS, w zespole QRS lub bezpośrednio za nim", correct: true },
+                    { text: "Załamek P pobudzenia przedwczesnego ujemny w odprowadzeniach II, III i aVF (jeżeli jest widoczny)", correct: true },
+                    { text: "Pierwszy zespół QRS rytmu zastępczego pojawia się później niż oczekiwane kolejne pobudzenie zatokowe rytmu podstawowego", correct: true },
+                    { text: "Częstość rytmu wynosi 120-180/min", correct: false }
+                ]
+            },
+            {
+                id: 17,
+                title: "Wskazań kryteria dla CZĘSTOSKURCZU PRZEDSIONKOWEGO Z BLOKIEM (PAT Z BLOKIEM): (3 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Załamki P o zmienionym kształcie w porównaniu z rytmem zatokowym, rozdzielone linią izoelektryczną", correct: true },
+                    { text: "Częstość rytmu przedsionków 110-280/min", correct: true },
+                    { text: "Blok a-v II lub III stopnia", correct: true },
+                    { text: "Odstęp PQ wysoce skrócony <0,05s", correct: false },
+                    { text: "Szerokie zespoły QRS z uniesieniem odcinka ST", correct: false }
+                ],
+                explanation: {
+                    orig: "Jest to szybki rytm przedsionków, który współistnieje z upośledzeniem przewodzenia w węźle a-v. Najczęściej jest skutkiem toksycznego działania naparstnicy.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Przedsionki biją bardzo szybko, ale 'skrzyżowanie' (węzeł AV) jest zablokowane i nie przepuszcza wszystkich impulsów do komór. Serce zabezpiecza się w ten sposób przed zbyt szybką pracą komór."
+                }
+            },
+            {
+                id: 18,
+                title: "Wskazań kryteria dla BLOKU PRZEDSIONKOWO-KOMOROWEGO I STOPNIA: (1 prawidłowa odpowiedź)",
+                type: "radio",
+                options: [
+                    { text: "Odstęp PQ>0,20s", correct: true },
+                    { text: "Odstęp PQ<0,10s", correct: false },
+                    { text: "Brak załamków P przed zespołami QRS", correct: false }
+                ],
+                explanation: {
+                    orig: "Jest wynikiem przedłużenia czasu przewodzenia przedsionkowo-komorowego. Każde pobudzenie przedsionkowo-komorowe dociera do komór (w przeciwieństwie do bloku a-v II i III stopnia). Typowym miejscem wydłużonego przewodzenia jest węzeł a-v, rzadziej pęczek Hisa i jego odnogi. Najczęściej powodem występowania jest miażdżycowe uszkodzenie mięśnia serca, zapalenie i zawał serca czy wpływ leków (np. beta-blokery).",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> Impuls elektryczny potrzebuje po prostu więcej czasu na przejście z przedsionków do komór. Sygnał idzie powoli, ale każdy bez wyjątku dociera do celu."
+                }
+            },
+            {
+                id: 19,
+                title: "Wskazań kryteria w typowym NAPADOWYM CZĘSTOSKURCZU Z ŁĄCZA PRZEDSIONKOWO-KOMOROWEGO (AVNRT): (3 prawidłowe odpowiedzi)",
+                type: "checkbox",
+                options: [
+                    { text: "Miarowy rytm o częstotliwości 150-200/min", correct: true },
+                    { text: "wsteczne załamki P (ujemne w II, III, aVF; dodatnie w aVR) zwykle ukryte w zespołach QRS", correct: true },
+                    { text: "załamki P mogą tworzyć pseudo R' w V1 i pseudo S w II, III i aVF", correct: true },
+                    { text: "Zawsze całkowicie niemiarowa akcja komór powyżej 220/min", correct: false },
+                    { text: "Szerokie zespoły QRS z ujemnym załamkiem P daleko przed QRS", correct: false }
+                ],
+                explanation: {
+                    orig: "Powstaje na podłożu pętli reentry, która zawiązuje się na skutek istnienia w obrębie węzła AV co najmniej dwóch dróg - szybkiej (fast) i wolnej (slow) o różnej szybkości przewodzenia i innych okresach refrakcji. Wyróżnia się: AVNRT-przewodzenie antydromowe odbywa się drogą wolną, a wsteczne szybką. Nietypowy AVNRT-zwykle zapoczątkowany przez przedwczesne pobudzenie przedsionkowe.",
+                    noob: "<strong>Wyjaśnienie dla początkujących:</strong> W węźle przedsionkowo-komorowym znajdują się dwie ścieżki prądu (szybka i wolna). Impuls zakleszcza się i kręci w pętli między nimi, zmuszając serce do ciągłego, bardzo szybkiego bicia."
+                }
+            },
+            {
+                id: 20,
+                title: "Jakie arytmie zaliczamy wyłącznie do grupy PRZEDSIONKOWYCH w podziale częstoskurczów nadkomorowych? (5 prawidłowych odpowiedzi)",
+                type: "checkbox",
                 options: [
                     { text: "Tachykardia zatokowa (ST)", correct: true },
                     { text: "Nieadekwatna tachykardia zatokowa (IST)", correct: true },
@@ -308,439 +435,128 @@
                     { text: "Ogniskowy częstoskurcz przedsionkowy (FAT)", correct: true },
                     { text: "Wielokształtny częstoskurcz przedsionkowy (MAT)", correct: true },
                     { text: "Nawrotny częstoskurcz węzłowy (AVNRT)", correct: false },
-                    { text: "Ogniskowy częstoskurcz węzłowy (JET)", correct: false },
-                    { text: "Nienapadowy częstoskurcz węzłowy (NPJT)", correct: false },
                     { text: "Nawrotny częstoskurcz przedsionkowo-komorowy (AVRT)", correct: false }
                 ]
             },
-
-            // ==========================================
-            // KATEGORIA 2: KRYTERIA EKG (Pełne komplety z pliku + 3 błędne)
-            // ==========================================
             {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Ekstrasystolia Przedsionkowa (PAC)",
-                explanation: "Kryteria PAC obejmują: przedwczesny (w stosunku do rytmu zatokowego) załamek P o zmienionym kształcie, zawsze poprzedzający zespół QRS; odstęp PQ > 0,10s; odstęp PR > 0,10s; kształt zespołu QRS przeważnie prawidłowy[cite: 10].",
+                id: 21,
+                title: "Jakie arytmie zaliczamy do grupy ŁĄCZA AV (PRZEDSIONKOWO-KOMOROWYCH) w podziale częstoskurczów nadkomorowych? (4 prawidłowe odpowiedzi)",
+                type: "checkbox",
                 options: [
-                    { text: "Przedwczesny (w stosunku do rytmu zatokowego) załamek P o zmienionym kształcie, zawsze poprzedza zespół QRS", correct: true },
-                    { text: "Odstęp PQ > 0,10s", correct: true },
-                    { text: "Odstęp PR > 0,10s", correct: true },
-                    { text: "Kształt zespołu QRS przeważnie prawidłowy", correct: true },
-                    { text: "Odstęp PQ jest skrócony i wynosi < 0,10s", correct: false },
-                    { text: "Załamek P występuje zawsze wyłącznie po zespole QRS", correct: false },
-                    { text: "Zespół QRS jest stale poszerzony (> 0,14s) i komorowy", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Ekstrasystolia Węzłowa (PJC)",
-                explanation: "Kryteria PJC obejmują: przedwczesny zespół QRS najczęściej o prawidłowym kształcie; odstęp PQ < 0,10s; załamek P zlokalizowany tuż przed QRS, w zespole QRS lub bezpośrednio po nim; załamek P ujemny w II, III i aVF (jeśli widoczny); powstanie w łączu AV z przewodzeniem wstecznym do przedsionków i zstępującym do komór[cite: 11].",
-                options: [
-                    { text: "Przedwczesny (w stosunku do rytmu zatokowego) zespół QRS najczęściej o prawidłowym kształcie", correct: true },
-                    { text: "Odstęp PQ < 0,10s", correct: true },
-                    { text: "Załamek P pobudzenia przedwczesnego zlokalizowany jest tuż przed zespołem QRS, w zespole QRS lub bezpośrednio po nim", correct: true },
-                    { text: "Załamek P pobudzenia przedwczesnego ujemny w odprowadzeniach II, III i aVF (jeżeli jest widoczny)", correct: true },
-                    { text: "Węzłowe pobudzenia przedwczesne powstają w łączu przedsionkowo-komorowym", correct: true },
-                    { text: "Pobudzenie jest przewodzone: wstecznie do przedsionków oraz w kierunku zstępującym do komór", correct: true },
-                    { text: "Odstęp PQ wynosi zawsze więcej niż 0,20s", correct: false },
-                    { text: "Załamek P jest stale dodatni w odprowadzeniach II, III i aVF", correct: false },
-                    { text: "Pobudzenie przewodzi się wyłącznie do komór z całkowitym blokiem wstecznym do przedsionków", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Przyspieszony Rytm Zatokowy / Tachykardia Zatokowa (ST)",
-                explanation: "Kryteria ST obejmują: miarowy rytm zatokowy o częstości powyżej 100/min (do 180, a nawet 200); załamki P dodatnie w odprowadzeniach I i II, ujemne w aVR; każdy zespół QRS poprzedzony załamkiem P[cite: 11].",
-                options: [
-                    { text: "Miarowy rytm zatokowy o częstości powyżej 100/min (do 180, a nawet 200)", correct: true },
-                    { text: "Załamki P dodatnie w odprowadzeniach I i II, ujemne w aVR", correct: true },
-                    { text: "Każdy zespół QRS poprzedzony załamkiem P", correct: true },
-                    { text: "Częstość rytmu wynosi stałe 40-50/min", correct: false },
-                    { text: "Załamki P są ujemne w odprowadzeniach I i II, a dodatnie w aVR", correct: false },
-                    { text: "Załamki P są całkowicie ukryte wewnątrz zespołów QRS", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Nawrotny Częstoskurcz Zatokowy (SANRT)",
-                explanation: "Kryteria SANRT obejmują: występowanie rzadkie; fala reentry w obrębie węzła zatokowego lub w jego ścisłym sąsiedztwie; załamki P o morfologii podobnej do zatokowych; częstotliwość w zakresie 100-150/min; charakter napadowy; parametr RP > 0,7s[cite: 12].",
-                options: [
-                    { text: "Występuje rzadko, fala reentry w obrębie węzła zatokowego lub w jego ścisłym sąsiedztwie", correct: true },
-                    { text: "Załamki P o morfologii podobnej do zatokowych", correct: true },
-                    { text: "Częstotliwość załamków P mieści się w zakresie 100-150/min", correct: true },
-                    { text: "Ma charakter napadowy", correct: true },
-                    { text: "RP > 0,7s", correct: true },
-                    { text: "Częstotliwość załamków P przekracza 280/min", correct: false },
-                    { text: "Parametr RP wynosi stale < 0,10s", correct: false },
-                    { text: "Fala reentry znajduje się w koniuszku lewej komory", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Nawrotny Częstoskurcz Przedsionkowo-Komorowy (AVRT)",
-                explanation: "Cechy AVRT obejmują: dodatkowy szlak przewodzenia między przedsionkami a komorami; możliwość powstania reentry; skrócenie odstępu PQ w rytmie zatokowym; ortodromowy AVRT występuje najczęściej, ma ujemne wsteczne P w II, III, aVF, dodatnie P w aVR, wąskie QRS, RP < 0,7s; antydromowy AVRT to miarowy częstoskurcz z szerokimi QRS akt. przez szlak[cite: 12, 13].",
-                options: [
-                    { text: "Dodatkowy szlak przewodzenia między przedsionkami a komorami, możliwość powstania reentry", correct: true },
-                    { text: "W rytmie zatokowym przewodzenie przez szlak dodatkowy widoczne jako skrócenie odstępu PQ w zespole QRS", correct: true },
-                    { text: "Ortodromowy AVRT występuje najczęściej", correct: true },
-                    { text: "Ortodromowy AVRT: ujemne, wsteczne załamki P w II, III, aVF", correct: true },
-                    { text: "Ortodromowy AVRT: dodatnie załamki P w aVR", correct: true },
-                    { text: "Ortodromowy AVRT: wąskie zespoły QRS o prawidłowej morfologii", correct: true },
-                    { text: "Ortodromowy AVRT: RP < 0,7s (najczęściej, rzadziej powyżej, choć może)", correct: true },
-                    { text: "Antydromowy AVRT: miarowy częstoskurcz z szerokimi zespołami QRS, komory aktywowane przez szlak dodatkowy", correct: true },
-                    { text: "Ortodromowy AVRT cechuje się stałą obecnością szerokich QRS > 0,16s", correct: false },
-                    { text: "W ortodromowym AVRT załamki P w II, III, aVF są zawsze dodatnie", correct: false },
-                    { text: "Antydromowy AVRT przebiega zawsze z wąskimi zespołami QRS i brakiem szlaku dodatkowego", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Ogniskowy Częstoskurcz Przedsionkowy (FAT)",
-                explanation: "Kryteria FAT obejmują: pojedyncze ognisko w mięśniówce przedsionków; częstotliwość przedsionków 100-250/min; odstęp PQ > 0,10s; linia izoelektryczna między monomorficznymi załamkami P; kształt załamków P zależy od lokalizacji i jest identyczny jak w pobudzeniu inicjującym; częstoskurcz może być niemiarowy; zwykle zaczyna i kończy się spontanicznie; RP > 0,7s[cite: 13].",
-                options: [
-                    { text: "1. Pojedyncze ognisko zlokalizowane w mięśniówce przedsionków", correct: true },
-                    { text: "2. Częstotliwość rytmu przedsionków w zakresie 100-250/min", correct: true },
-                    { text: "3. Odstęp PQ > 0,10s", correct: true },
-                    { text: "4. Między monomorficznymi załamkami P występuje linia izoelektryczna", correct: true },
-                    { text: "5. Kształt załamków P zależy od lokalizacji; mają identyczny kształt jak załamek P pobudzenia inicjującego", correct: true },
-                    { text: "6. Częstoskurcz może być niemiarowy", correct: true },
-                    { text: "7. Zwykle zaczyna i kończy się spontanicznie", correct: true },
-                    { text: "8. RP > 0,7s", correct: true },
-                    { text: "Brak linii izoelektrycznej między załamkami P (fale falistego trzepotania F)", correct: false },
-                    { text: "Odstęp PQ w FAT wynosi zawsze < 0,05s", correct: false },
-                    { text: "Parametr RP wynosi stale < 0,10s", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Wielokształtny Częstoskurcz Przedsionkowy (MAT)",
-                explanation: "Kryteria MAT obejmują: częstość rytmu 100-250/min; załamki P różnokształtne w tym samym odprowadzeniu; zmienny odstęp PQ; kształt zespołów QRS przeważnie prawidłowy; niemiarowy rytm komór; RP > 0,7s[cite: 13].",
-                options: [
-                    { text: "Częstość rytmu 100-250/min", correct: true },
-                    { text: "Załamki P różnokształtne w tym samym odprowadzeniu", correct: true },
-                    { text: "Zmienny odstęp PQ", correct: true },
-                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
-                    { text: "Niemiarowy rytm komór", correct: true },
-                    { text: "RP > 0,7s", correct: true },
-                    { text: "Rytm komór jest idealnie miarowy", correct: false },
-                    { text: "Wszystkie załamki P mają identyczny, monomorficzny kształt", correct: false },
-                    { text: "Odstęp PQ jest absolutnie stały i niezmienny", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Napadowy Częstoskurcz Nadkomorowy (SV-TACHY, PSVT)",
-                explanation: "Kryteria PSVT obejmują: częstość rytmu 150-250/min; załamek P o zmienionym kształcie w porównaniu z rytmem zatokowym lub niewidoczny; kształt zespołów QRS przeważnie prawidłowy; nagły początek i nagły koniec częstoskurczu[cite: 14].",
-                options: [
-                    { text: "Częstość rytmu 150-250/min", correct: true },
-                    { text: "Załamek P o zmienionym kształcie w porównaniu z rytmem zatokowym lub niewidoczny", correct: true },
-                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
-                    { text: "Nagły początek i nagły koniec częstoskurczu", correct: true },
-                    { text: "Częstość rytmu wynosi stale 50-80/min", correct: false },
-                    { text: "Częstoskurcz rozpoczyna się i kończy stopniowo przez kilka godzin", correct: false },
-                    { text: "Załamek P ma zawsze kształt identyczny z rytmem zatokowym", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Napadowy Częstoskurcz z Łącza AV (AVNRT)",
-                explanation: "Cechy AVNRT obejmują: pętla reentry z drogi szybkiej i wolnej w węźle AV; miarowy rytm 150-200/min; wsteczne załamki P (ujemne w II, III, aVF; dodatnie w aVR) zwykle ukryte w QRS; załamki P tworzące pseudo R' w V1 i pseudo S' w II, III, aVF; postać nietypowa zapoczątkowana zwykle przez PAC[cite: 14, 15].",
-                options: [
-                    { text: "Miarowy rytm o częstości 150-200/min", correct: true },
-                    { text: "Wsteczne załamki P (ujemne w II, III, aVF; dodatnie w aVR) zwykle ukryte w zespołach QRS", correct: true },
-                    { text: "Załamki P mogą tworzyć pseudo R' w V1 i pseudo S' w II, III i aVF", correct: true },
-                    { text: "Nietypowy AVNRT – zwykle zapoczątkowany przez przedwczesne pobudzenie przedsionkowe", correct: true },
-                    { text: "Wsteczne załamki P są zawsze dodatnie w II, III i aVF", correct: false },
-                    { text: "Rytm serca jest wysoce niemiarowy z częstością < 90/min", correct: false },
-                    { text: "Pętla reentry mieści się wyłącznie w uszku lewego przedsionka", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Ogniskowy Częstoskurcz Węzłowy (JET)",
-                explanation: "Kryteria JET obejmują: przejęcie rytmu przez ognisko w węźle AV lub pęczku Hisa; częstość 110-250/min; zmienna lokalizacja załamków P (mogą być ukryte w QRS); RP < 0,7s[cite: 15].",
-                options: [
-                    { text: "Częstość rytmu serca w przedziale 110-250/min", correct: true },
-                    { text: "Lokalizacja załamków P jest zmienna", correct: true },
-                    { text: "Załamki P mogą być ukryte w zespołach QRS", correct: true },
-                    { text: "RP < 0,7s", correct: true },
-                    { text: "Częstość rytmu mieści się w granicach 40-50/min", correct: false },
-                    { text: "Parametr RP wynosi stale > 1,5s", correct: false },
-                    { text: "Załamki P są stale zlokalizowane dokładnie 0,30s przed zespole QRS", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria i cechy: Nienapadowy Częstoskurcz Węzłowy (NPJT)",
-                explanation: "Cechy NPJT obejmują: łagodna arytmia o częstości 70-120/min; zjawisko przyspieszania na początku i zwalniania przed ustąpieniem; występowanie w przebiegu poważnych stanów (np. zapalenie mięśnia sercowego); przewodzenie AV zazwyczaj w stosunku 1:1[cite: 15].",
-                options: [
-                    { text: "Łagodna arytmia o częstości 70-120/min", correct: true },
-                    { text: "Typowe dla niego jest zjawisko przyspieszania na początku i zwalniania przed jego ustąpieniem", correct: true },
-                    { text: "Występuje w przebiegu innych poważnych stanów, np. zapalenie mięśnia sercowego", correct: true },
-                    { text: "Zwykle przewodzenie przedsionkowo-komorowe odbywa się w stosunku 1:1", correct: true },
-                    { text: "Częstość rytmu wynosi 200-280/min z nagłym początkiem", correct: false },
-                    { text: "Przewodzenie odbywa się zawsze w bloku 3:1 lub 4:1", correct: false },
-                    { text: "Brak zjawiska 'rozgrzewania' i 'schładzania' – rytm rozpoczyna się natychmiastowo", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Zastępczy Rytm Węzłowy (JR)",
-                explanation: "Kryteria JR obejmują: miarowy rytm o częstości 40-60/min; QRS przeważnie prawidłowy; odstęp PQ < 0,10s; załamki P tuż przed QRS, w QRS lub bezpośrednio za nim; załamek P ujemny w II, III, aVF (jeśli widoczny); pierwszy QRS rytmu zastępczego pojawia się później niż oczekiwane kolejne pobudzenie zatokowe[cite: 15].",
-                options: [
-                    { text: "Miarowy rytm o częstości 40-60/min", correct: true },
-                    { text: "Kształt zespołów QRS przeważnie prawidłowy", correct: true },
-                    { text: "Odstęp PQ < 0,10s", correct: true },
-                    { text: "Załamki P zlokalizowane tuż przed zespołem QRS, w zespole QRS lub bezpośrednio za nim", correct: true },
-                    { text: "Załamek P pobudzenia przedwczesnego ujemny w odprowadzeniach II, III i aVF (jeżeli jest widoczny)", correct: true },
-                    { text: "Pierwszy zespół QRS rytmu zastępczego pojawia się PÓŹNIEJ niż oczekiwane kolejne pobudzenie zatokowe rytmu podstawowego", correct: true },
-                    { text: "Częstość rytmu wynosi 140-180/min", correct: false },
-                    { text: "Pierwszy zespół QRS rytmu zastępczego pojawia się WCZEŚNIEJ niż oczekiwane pobudzenie zatokowe", correct: false },
-                    { text: "Odstęp PQ wynosi stale więcej niż 0,22s", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Częstoskurcz Przedsionkowy z Blokiem (PAT z blokiem)",
-                explanation: "Kryteria PAT z blokiem obejmują: załamki P o zmienionym kształcie w porównaniu z rytmem zatokowym, rozdzielone linią izoelektryczną; częstość rytmu przedsionków 110-280/min; blok a-v II lub III stopnia[cite: 16].",
-                options: [
-                    { text: "Załamki P o zmienionym kształcie w porównaniu z rytmem zatokowym, rozdzielone linią izoelektryczną", correct: true },
-                    { text: "Częstość rytmu przedsionków 110-280/min", correct: true },
-                    { text: "Blok a-v II lub III stopnia", correct: true },
-                    { text: "Przewodzenie przedsionkowo-komorowe odbywa się bez bloku w stosunku 1:1", correct: false },
-                    { text: "Brak linii izoelektrycznej między załamkami P", correct: false },
-                    { text: "Częstość rytmu przedsionków wynosi dokładnie 30-50/min", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_2",
-                text: "Kryteria EKG: Blok Przedsionkowo-Komorowy I Stopnia",
-                explanation: "Kryteria bloku AV I st. obejmują: odstęp PQ > 0,20s; przedłużenie czasu przewodzenia przedsionkowo-komorowego; każde pobudzenie dociera do komór (brak wypadania QRS); typowe miejsce to węzeł AV, rzadziej pęczek Hisa i jego odnogi[cite: 16].",
-                options: [
-                    { text: "Odstęp PQ > 0,20s", correct: true },
-                    { text: "Jest wynikiem przedłużenia czasu przewodzenia przedsionkowo-komorowego", correct: true },
-                    { text: "Każde pobudzenie przedsionkowo-komorowe dociera do komór (w przeciwieństwie do bloku a-v II i III stopnia)", correct: true },
-                    { text: "Typowym miejscem wydłużonego przewodzenia jest węzeł a-v, rzadziej pęczek Hisa i jego odnogi", correct: true },
-                    { text: "Występują okresowe wypadnięcia zespołów QRS po załamkach P", correct: false },
-                    { text: "Odstęp PQ ulega skróceniu poniżej 0,08s", correct: false },
-                    { text: "Całkowity brak przewodzenia impulsów z przedsionków do komór", correct: false }
-                ]
-            },
-
-            // ==========================================
-            // KATEGORIA 3: ETIOLOGIA, MECHANIZMY I OPISY KLINICZNE
-            // ==========================================
-            {
-                category: "CATEGORY_3",
-                text: "Mechanizmy i przerwa poekstrasystoliczna: PAC, PJC, ST",
-                explanation: "PAC powstają w przedsionku poza węzłem S-A i zazwyczaj pobudzają wstecznie węzeł zatokowy, wywołując przerwę poekstrasystoliczną krótszą niż pełna przerwa wyrównawcza[cite: 10]. PJC powstają w łączu AV i są przewodzone wstecznie do przedsionków oraz zstępująco do komór[cite: 11]. ST wynika ze zwiększonej częstości powstawania pobudzeń w węźle zatokowym[cite: 11].",
-                options: [
-                    { text: "Przedsionkowe pobudzenia przedwczesne (PAC) powstają w przedsionku poza węzłem zatokowym", correct: true },
-                    { text: "PAC zazwyczaj pobudzają wstecznie węzeł zatokowy, co powoduje zmianę rytmu i przerwę poekstrasystoliczną", correct: true },
-                    { text: "Przerwa poekstrasystoliczna po PAC jest KRÓTSZA niż pełna przerwa wyrównawcza", correct: true },
-                    { text: "Węzłowe pobudzenia przedwczesne (PJC) powstają w łączu przedsionkowo-komorowym", correct: true },
-                    { text: "Pobudzenie w PJC jest przewodzone wstecznie do przedsionków i w kierunku zstępującym do komór", correct: true },
-                    { text: "ST jest wynikiem zwiększonej częstości powstawania pobudzeń w węźle zatokowym (np. w czasie wysiłku)", correct: true },
-                    { text: "Przerwa poekstrasystoliczna w PAC jest zawsze pełną przerwą wyrównawcza", correct: false },
-                    { text: "PJC przewodzi się wyłącznie do komór bez wstecznej depolaryzacji przedsionków", correct: false },
-                    { text: "ST powstaje w pętli reentry zlokalizowanej w koniuszku lewej komory", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_3",
-                text: "Formy pobudzeń przedsionkowych: Jak definiuje się ekstrasystole i formy ich występowania?",
-                explanation: "Pobudzenia pozazatokowe pojawiające się wcześniej niż oczekiwane pobudzenie zatokowe to pobudzenia przedwczesne (ES), gdy część mięśnia staje się aktywna wcześniej niż S-A[cite: 10]. Formy: Bigeminia (po każdym prawidłowym przedwczesne, min. 3 zdarzenia), Trigeminia (po dwóch prawidłowych przedwczesne, min. 3 zdarzenia), Pary (dwa pobudzenia), Salwy (3-5 pobudzeń bezpośrednio po sobie)[cite: 10].",
-                options: [
-                    { text: "Pobudzenia pozazatokowe pojawiające się wcześniej niż oczekiwane pobudzenie zatokowe nazywa się pobudzeniem przedwczesnym, dodatkowym lub ekstrasystolem (ES)", correct: true },
-                    { text: "ES występuje, gdy pewna część mięśnia sercowego staje się aktywna wcześniej niż węzeł S-A", correct: true },
-                    { text: "Bigeminia: po każdym prawidłowym pobudzeniu występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: true },
-                    { text: "Trigeminia: po dwóch pobudzeniach prawidłowych występuje pobudzenie przedwczesne (nie mniej niż 3 zdarzenia po sobie)", correct: true },
-                    { text: "Pary: dwa pobudzenia", correct: true },
-                    { text: "Salwy: od 3-5 występujących bezpośrednio po sobie pobudzeń", correct: true },
-                    { text: "Bigeminia wymaga wystąpienia co najmniej 10 zdarzeń po sobie", correct: false },
-                    { text: "Salwy są definiowane jako minimum 15 pobudzeń komorowych", correct: false },
-                    { text: "Pobudzenie dodatkowe powstaje w wyniku całkowitego zablokowania automatyki serca", correct: false }
-                ]
-            },
-            {
-                category: "CATEGORY_3",
-                text: "Etiologia i przyczyny kliniczne: Schorzenia powiązane z PAC, PJC, MAT, PSVT, PAT z blokiem oraz blokiem AV I st.",
-                explanation: "PAC mogą występować u zdrowych, ale najczęściej wynikają z chorób organicznych (np. przerost przedsionków)[cite: 10]. PJC występują u zdrowych i w zapaleniu mięśnia sercowego[cite: 11]. MAT występuje u starszych z zaawansowanymi chorobami krążenia[cite: 14]. PSVT występuje przy wadach serca lub u zdrowych[cite: 14]. PAT z blokiem to najczęściej skutek toksycznego działania naparstnicy[cite: 16]. Blok AV I st. wywołuje miażdżyca, zapalenie, zawał lub leki (np. beta-blokery)[cite: 16]. NPJT występuje m.in. w zapaleniu mięśnia sercowego[cite: 15].",
-                options: [
-                    { text: "PAC najczęściej spowodowane są organicznymi chorobami serca (np. przerost przedsionków)", correct: true },
-                    { text: "PJC mogą występować u zdrowych oraz w chorobach serca (np. zapalenie mięśnia sercowego)", correct: true },
-                    { text: "MAT występuje rzadko, głównie u osób w podeszłym wieku z zaawansowanymi chorobami układu krążenia", correct: true },
-                    { text: "PSVT występuje najczęściej u chorych z wadami serca, a zdarza się i u osób zdrowych", correct: true },
-                    { text: "PAT z blokiem jest najczęściej skutkiem toksycznego działania naparstnicy", correct: true },
-                    { text: "Blok AV I st. najczęściej wywołują: miażdżycowe uszkodzenie mięśnia serca, zapalenie, zawał serca lub wpływy leków (np. beta-blokery)", correct: true },
-                    { text: "NPJT występuje w przebiegu poważnych stanów, np. zapalenie mięśnia sercowego", correct: true },
-                    { text: "PAT z blokiem jest wywoływany wyłącznie przez przedawkowanie witaminy C", correct: false },
-                    { text: "Blok AV I stopnia nie ma żadnego związku ze stosowaniem beta-blokerów", correct: false },
-                    { text: "MAT jest typową arytmią występującą u zdrowych noworodków", correct: false }
+                    { text: "Nawrotny częstoskurcz węzłowy (AVNRT)", correct: true },
+                    { text: "Ogniskowy częstoskurcz węzłowy (JET)", correct: true },
+                    { text: "Nienapadowy częstoskurcz węzłowy (NPJT)", correct: true },
+                    { text: "Nawrotny częstoskurcz przedsionkowo-komorowy (AVRT)", correct: true },
+                    { text: "Nieadekwatna tachykardia zatokowa (IST)", correct: false },
+                    { text: "Wielokształtny częstoskurcz przedsionkowy (MAT)", correct: false }
                 ]
             }
         ];
 
-        let shuffledQuestions = [];
-
-        function shuffleArray(array) {
-            const arr = [...array];
-            for (let i = arr.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [arr[i], arr[j]] = [arr[j], arr[i]];
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            let newArr = [...array];
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [newArr[currentIndex], newArr[randomIndex]] = [newArr[randomIndex], newArr[currentIndex]];
             }
-            return arr;
+            return newArr;
         }
 
-        function initTest() {
-            const container = document.getElementById('quizContainer');
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
             container.innerHTML = '';
-            document.getElementById('scoreBoard').innerText = 'Wynik ogólny: - / -';
 
-            shuffledQuestions = shuffleArray(rawQuestions).map(q => {
-                return {
-                    ...q,
-                    options: shuffleArray(q.options)
-                };
-            });
+            questionsData.forEach((q, index) => {
+                const shuffledOptions = shuffle(q.options);
+                
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `question-${q.id}`;
 
-            const categoryNames = {
-                "CATEGORY_1": "I. PODZIAŁY I STRUKTURA ARYTMII",
-                "CATEGORY_2": "II. KRYTERIA EKG POSZCZEGÓLNYCH ZABURZEŃ",
-                "CATEGORY_3": "III. ETIOLOGIA, MECHANIZMY I OPISY KLINICZNE"
-            };
+                let html = `<div class="question-title">${index + 1}. ${q.title}</div>`;
+                html += `<ul class="answers-list" id="list-${q.id}">`;
 
-            const categories = ["CATEGORY_1", "CATEGORY_2", "CATEGORY_3"];
+                shuffledOptions.forEach((opt, optIndex) => {
+                    const inputId = `q${q.id}_opt${optIndex}`;
+                    const inputType = q.type;
+                    const inputName = `question_${q.id}`;
+                    
+                    html += `
+                        <li id="li_${inputId}">
+                            <label for="${inputId}">
+                                <input type="${inputType}" id="${inputId}" name="${inputName}" data-correct="${opt.correct}">
+                                <span>${opt.text}</span>
+                                <span class="status-tag" id="status_${inputId}"></span>
+                            </label>
+                        </li>
+                    `;
+                });
 
-            categories.forEach(catKey => {
-                const catQuestions = shuffledQuestions.filter(q => q.category === catKey);
-                if (catQuestions.length > 0) {
-                    const catHeader = document.createElement('div');
-                    catHeader.className = 'category-header';
-                    catHeader.innerText = categoryNames[catKey];
-                    container.appendChild(catHeader);
+                html += `</ul>`;
+                html += `<button class="btn-check" onclick="checkAnswer(${q.id})">Sprawdź</button>`;
+                html += `<div class="feedback" id="feedback-${q.id}"></div>`;
 
-                    catQuestions.forEach((q) => {
-                        const originalIndex = shuffledQuestions.indexOf(q);
-                        const correctCount = q.options.filter(o => o.correct).length;
-
-                        const card = document.createElement('div');
-                        card.className = 'question-card';
-                        card.id = `q-card-${originalIndex}`;
-
-                        let html = `
-                            <div class="question-header">
-                                <p class="question-text">${originalIndex + 1}. ${q.text}</p>
-                                <span class="badge-count">Poprawnych odpowiedzi: ${correctCount}</span>
-                            </div>
-                            <ul class="options-list">
-                        `;
-
-                        q.options.forEach((opt, oIndex) => {
-                            html += `
-                                <li class="option-item">
-                                    <label class="option-label" id="label-${originalIndex}-${oIndex}">
-                                        <input type="checkbox" name="q_${originalIndex}" value="${oIndex}">
-                                        <span>${opt.text}</span>
-                                    </label>
-                                </li>
-                            `;
-                        });
-
-                        html += `</ul>`;
-
-                        html += `
-                            <div class="single-check-bar">
-                                <button type="button" class="btn btn-outline btn-sm" onclick="checkSingleQuestion(${originalIndex})">🔍 Sprawdź tylko to pytanie</button>
-                                <span id="single-score-${originalIndex}" style="font-weight:600; font-size:0.9rem;"></span>
-                            </div>
-                            <div class="explanation-box" id="exp-${originalIndex}">
-                                <strong>Wyjaśnienie i prawidłowa wiedza:</strong><br>${q.explanation}
-                            </div>
-                        `;
-
-                        card.innerHTML = html;
-                        container.appendChild(card);
-                    });
+                if (q.explanation) {
+                    html += `
+                        <div class="explanation-box">
+                            <div class="orig-text">${q.explanation.orig}</div>
+                            <div class="noob-expl">${q.explanation.noob}</div>
+                        </div>
+                    `;
                 }
+
+                card.innerHTML = html;
+                container.appendChild(card);
             });
         }
 
-        function checkSingleQuestion(qIndex) {
-            const q = shuffledQuestions[qIndex];
-            const checkboxes = document.querySelectorAll(`input[name="q_${qIndex}"]`);
-            const expBox = document.getElementById(`exp-${qIndex}`);
-            const scoreSpan = document.getElementById(`single-score-${qIndex}`);
+        function checkAnswer(questionId) {
+            const card = document.getElementById(`question-${questionId}`);
+            const inputs = card.querySelectorAll('input');
+            const feedback = document.getElementById(`feedback-${questionId}`);
             
-            expBox.style.display = 'block';
+            let isAllCorrect = true;
 
-            let qCorrectHit = 0;
-            let qMaxCorrect = 0;
-            let wrongSelection = 0;
+            inputs.forEach(input => {
+                const li = document.getElementById(`li_${input.id}`);
+                const statusTag = document.getElementById(`status_${input.id}`);
+                const isCorrectAnswer = input.getAttribute('data-correct') === 'true';
+                const isChecked = input.checked;
 
-            q.options.forEach((opt, oIndex) => {
-                const label = document.getElementById(`label-${qIndex}-${oIndex}`);
-                const isChecked = checkboxes[oIndex].checked;
+                // Reset klas podświetlenia
+                li.className = '';
+                statusTag.innerText = '';
 
-                label.classList.remove('correct-target', 'incorrect-target', 'missed-target');
-
-                if (opt.correct) {
-                    qMaxCorrect++;
-                    if (isChecked) {
-                        qCorrectHit++;
-                        label.classList.add('correct-target');
-                    } else {
-                        label.classList.add('missed-target');
+                // Jeśli odpowiedź jest PRAWIDŁOWA (niezależnie czy zaznaczona czy nie)
+                if (isCorrectAnswer) {
+                    li.classList.add('option-correct-target');
+                    statusTag.innerText = '✓ Prawidłowa';
+                    if (!isChecked) {
+                        isAllCorrect = false; // Nie zaznaczono dobrej odpowiedzi
                     }
                 } else {
+                    // Jeśli odpowiedź jest BŁĘDNA, a użytkownik ją ZAZNACZYŁ
                     if (isChecked) {
-                        wrongSelection++;
-                        label.classList.add('incorrect-target');
+                        li.classList.add('option-wrong-selected');
+                        statusTag.innerText = '✗ Błędna';
+                        isAllCorrect = false;
                     }
                 }
             });
 
-            if (qCorrectHit === qMaxCorrect && wrongSelection === 0) {
-                scoreSpan.innerText = ` Wyśmienicie! Zaznaczono wszystkie ${qCorrectHit}/${qMaxCorrect} poprawne odpowiedzi.`;
-                scoreSpan.style.color = "var(--success-color)";
+            feedback.style.display = 'block';
+            if (isAllCorrect) {
+                feedback.className = 'feedback correct';
+                feedback.innerText = 'Świetnie! Zaznaczono dokładnie wszystkie prawidłowe odpowiedzi.';
             } else {
-                scoreSpan.innerText = ` Trafiono ${qCorrectHit}/${qMaxCorrect} poprawnych. Błędnie zaznaczonych: ${wrongSelection}.`;
-                scoreSpan.style.color = "var(--danger-color)";
+                feedback.className = 'feedback incorrect';
+                feedback.innerText = 'Wskazano niepełne lub niepoprawne opcje. Prawidłowe opcje zostały podświetlone na zielono, a Twoje błędne zaznaczenia na czerwono.';
             }
         }
 
-        function checkAllAnswers() {
-            let totalMaxScore = 0;
-            let userScore = 0;
-
-            shuffledQuestions.forEach((q, qIndex) => {
-                checkSingleQuestion(qIndex);
-
-                const checkboxes = document.querySelectorAll(`input[name="q_${qIndex}"]`);
-                q.options.forEach((opt, oIndex) => {
-                    if (opt.correct) {
-                        totalMaxScore++;
-                        if (checkboxes[oIndex].checked) {
-                            userScore++;
-                        }
-                    }
-                });
-            });
-
-            const scoreBoard = document.getElementById('scoreBoard');
-            const percentage = Math.round((userScore / totalMaxScore) * 100);
-            scoreBoard.innerText = `Wynik ogólny: ${userScore} / ${totalMaxScore} (${percentage}%)`;
-            
-            if (percentage >= 80) {
-                scoreBoard.style.color = "var(--success-color)";
-            } else {
-                scoreBoard.style.color = "var(--danger-color)";
-            }
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        window.onload = initTest;
+        window.onload = renderQuiz;
     </script>
 </body>
 </html>
